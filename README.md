@@ -16,8 +16,10 @@ Download preocessed data:
 
 For tuning hyperparamters: 
 
-    python main.py --dataset Amazon --test_mode 0 ...
+    python main.py --dataset Amazon --test_mode 0
 
+For training and inference: 
 
+    python main.py --dataset Amazon --test_mode 1
 
 If you consider using this code or its derivatives, please consider citing.
