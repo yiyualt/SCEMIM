@@ -9,3 +9,11 @@ See requirements.txt
 We use EXTRA data set from https://github.com/lileipisces/EXTRA
 
 
+
+### Example
+
+For tuning hyperparamters: 
+
+  python main.py --dataset Amazon --test_mode 0 ...
+
+
