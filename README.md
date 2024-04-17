@@ -14,6 +14,6 @@ We use EXTRA data set from https://github.com/lileipisces/EXTRA
 
 For tuning hyperparamters: 
 
-  python main.py --dataset Amazon --test_mode 0 ...
+    python main.py --dataset Amazon --test_mode 0 ...
 
 
