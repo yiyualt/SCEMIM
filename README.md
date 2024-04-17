@@ -17,3 +17,5 @@ For tuning hyperparamters:
     python main.py --dataset Amazon --test_mode 0 ...
 
 
+
+If you consider using this code or its derivatives, please consider citing.
