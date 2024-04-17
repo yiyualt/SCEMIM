@@ -6,7 +6,9 @@ This repository provides code for the paper "Sequential Recommendation with Coll
 See requirements.txt
 
 ### Data Preparation
-We use EXTRA data set from https://github.com/lileipisces/EXTRA
+We use EXTRA data set from https://github.com/lileipisces/EXTRA.
+Download preocessed data: 
+    
 
 
 
