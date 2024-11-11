@@ -26,7 +26,7 @@ def construct_data(user2action, user2action_4test, valid_df, test_df, item_pad_i
             if len(split_expl_action) < max_len:
                 split_expl_action = split_expl_action + [expl_pad_idx] * (25 - len(split_expl_action))
             train_item_actions.append(split_item_action)
-            train_expl_actions.append(split_expl_action)
+            train_expl_actions.append(split_expl_action) 
     
     train_item_output = torch.tensor(train_item_actions, dtype=torch.long)
     train_expl_output = torch.tensor(train_expl_actions, dtype=torch.long)
@@ -35,10 +35,10 @@ def construct_data(user2action, user2action_4test, valid_df, test_df, item_pad_i
     
     # combine previous explanation actions for recommendaiton
     train_item_inputs = torch.concat((train_item_input.unsqueeze(-1), train_expl_input.unsqueeze(-1)), dim=-1)
-    # combine item actions for explanation
-    train_expl_inputs = torch.concat((train_item_output.unsqueeze(-1), train_expl_input.unsqueeze(-1)), dim=-1) # note that the used item actions are shifted to the right.
     train_item_dataset = TensorDataset(train_item_inputs, torch.stack((train_item_output, train_expl_output),dim=2))
     train_item_dataloader = DataLoader(train_item_dataset, batch_size=batch_size, shuffle=True)
+    # combine item actions for explanation
+    train_expl_inputs = torch.concat((train_item_output.unsqueeze(-1), train_expl_input.unsqueeze(-1)), dim=-1) # note that the used item actions are shifted to the right.
     train_expl_dataset = TensorDataset(train_expl_inputs, train_expl_output)
     train_expl_dataloader = DataLoader(train_expl_dataset, batch_size=batch_size, shuffle=True)
     
@@ -102,15 +102,15 @@ def construct_data(user2action, user2action_4test, valid_df, test_df, item_pad_i
         if len(latest_expl_action) < 25:
             latest_expl_action = [expl_pad_idx] + latest_expl_action + [expl_pad_idx] * (24 - len(latest_expl_action))
 
-        valid_item_inputs.append([test_item_action4rec, latest_expl_action])
-        valid_expl_inputs.append([test_item_action4expl, latest_expl_action])
-    valid_item_input = torch.tensor(valid_item_inputs, dtype=torch.long).permute(0, 2, 1)
-    valid_item_dataset = TensorDataset(valid_item_input)
-    test_item_dataloader = DataLoader(valid_item_dataset, batch_size=batch_size, shuffle=False)
+        test_item_inputs.append([test_item_action4rec, latest_expl_action])
+        test_expl_inputs.append([test_item_action4expl, latest_expl_action])
+    test_item_input = torch.tensor(test_item_inputs, dtype=torch.long).permute(0, 2, 1)
+    test_item_dataset = TensorDataset(test_item_input)
+    test_item_dataloader = DataLoader(test_item_dataset, batch_size=batch_size, shuffle=False)
 
-    valid_expl_input = torch.tensor(valid_expl_inputs, dtype=torch.long).permute(0, 2, 1)
-    valid_expl_dataset = TensorDataset(valid_expl_input)
-    test_expl_dataloader = DataLoader(valid_expl_dataset, batch_size=batch_size, shuffle=False)
+    test_expl_input = torch.tensor(texpl_inputs, dtype=torch.long).permute(0, 2, 1)
+    test_expl_dataset = TensorDataset(test_expl_input)
+    test_expl_dataloader = DataLoader(test_expl_dataset, batch_size=batch_size, shuffle=False)
     train_dataloader = {"item": train_item_dataloader, "expl": train_expl_dataloader}
     valid_dataloader = {"item": valid_item_dataloader, "expl": valid_expl_dataloader}
     test_dataloader = {"item": test_item_dataloader, "expl": test_expl_dataloader}
@@ -118,7 +118,7 @@ def construct_data(user2action, user2action_4test, valid_df, test_df, item_pad_i
 
 
 # LRURec model needs left-padding. 
-def construct_data_for_LRURec(user2action, user2action_4test, valid_df, test_df, item_pad_idx, expl_pad_idx, batch_size=512, max_len=25):
+def construct_data_for_LRURec(user2action, valid_df, test_df, item_pad_idx, expl_pad_idx, batch_size=512, max_len=25):
     train_item_actions = []
     train_expl_actions = []
     for user, action in user2action.items():
