@@ -8,7 +8,7 @@ See requirements.txt
 ### Data Preparation
 We use EXTRA data set from https://github.com/lileipisces/EXTRA.
 
-You can also download the processed data via: [[https://drive.google.com/drive/folders/10lVVWCLsRL2SOibG_s85917IxH9UVnqh](https://drive.google.com/drive/folders/11cAMwj7ZpmDXhKSDs4LAnmDqvScyIp5m?usp=sharing)](https://drive.google.com/drive/folders/11cAMwj7ZpmDXhKSDs4LAnmDqvScyIp5m?usp=sharing)
+You can also download the processed data via: [Google Drive](https://drive.google.com/drive/folders/11cAMwj7ZpmDXhKSDs4LAnmDqvScyIp5m)
     
 
 
